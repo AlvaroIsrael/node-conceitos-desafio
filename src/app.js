@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-
-// const { uuid } = require("uuidv4");
+const {uuid} = require('uuidv4');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
+/* An array just to simulate a database persistence. Witch one we yet don't have.*/
 const repositories = [];
 
 app.get('/repositories', (req, res) => {
@@ -15,7 +15,12 @@ app.get('/repositories', (req, res) => {
 });
 
 app.post('/repositories', (req, res) => {
-  // TODO
+  const {title, url, techs} = req.body;
+  const newRepository = {repo_id: uuid(), title, url, techs, likes: 0};
+
+  repositories.push(newRepository);
+
+  res.status(200).json(newRepository);
 });
 
 app.put('/repositories/:id', (req, res) => {
