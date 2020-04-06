@@ -23,15 +23,32 @@ app.post('/repositories', (req, res) => {
   res.status(200).json(newRepository);
 });
 
-app.put('/repositories/:id', (req, res) => {
+app.put('/repositories/:repo_id', (req, res) => {
+  const {repo_id} = req.params;
+  const {title, url, techs} = req.body;
+  const repositoryIndex = repositories.findIndex(repo => repo.repo_id === repo_id);
+
+  if (repositoryIndex < 0) {
+    return res.status(400).json({error: 'Respository not found.'});
+  }
+
+  const repository = {
+    repo_id,
+    title,
+    url,
+    techs,
+  };
+
+  repositories[repositoryIndex] = repository;
+
+  return res.status(200).json(repository);
+});
+
+app.delete('/repositories/:repo_id', (req, res) => {
   // TODO
 });
 
-app.delete('/repositories/:id', (req, res) => {
-  // TODO
-});
-
-app.post('/repositories/:id/like', (req, res) => {
+app.post('/repositories/:repo_id/like', (req, res) => {
   // TODO
 });
 
