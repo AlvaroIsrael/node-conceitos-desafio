@@ -4,8 +4,8 @@ const {uuid} = require('uuidv4');
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 /* An array just to simulate a database persistence. Witch one we yet don't have.*/
 const repositories = [];
